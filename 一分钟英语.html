@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>一分钟学英语</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.circle{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    display:block;
+    margin:20px auto 0;          /* 上方留一点空隙，下方 0 稍后接 Bio */
+}
+.Bio{
+    text-align:center;
+    font-size:14px;
+    color:#444;
+    margin:10px auto 20px;
+}
+.header{
+    background:#f0f4f8;
+    padding:15px 0;
+    display:flex;
+    justify-content:center;
+    gap:20px;
+}
+.header button{
+    flex:1 1 300px;
+    max-width:400px;
+    padding:12px 0;
+    font-size:16px;
+    cursor:pointer;
+    border:none;
+    border-radius:4px;
+    background:#e0e0e0;
+    transition:background .2s;
+}
+.header button.active{background:#007bff;color:#fff;}
+.gallery{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    padding:30px 10px;
+    flex-wrap:wrap;
+}
+.gallery img{
+    width:180px;
+    height:180px;
+    object-fit:cover;
+    border-radius:8px;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+    transition:transform .2s;
+}
+.gallery img:hover{transform:scale(1.05);}
+.footer{padding:20px 0;font-size:14px;color:#666;text-align:center;}
+</style>
+</head>
+<body>
+
+<img src="https://i.postimg.cc/pmtBdG4w/logo.jpg" class="circle" alt="Logo">
+
+<div class="Bio">
+    <p>一分钟英语</p>
+    <p>聚焦中英词汇替换教学</p>
+    <p>用“中文词→英文词”的方式高效记单词</p>
+    <p>带你轻松掌握词汇含义&用法</p>
+    <p>一起在语境里学英语</p>
+</div>
+
+<div class="header">
+    <button class="active" onclick="switchGallery('scene')">情景背单词</button>
+    <button onclick="switchGallery('poly')">同词不同义</button>
+</div>
+
+<!-- 情景背单词 -->
+<div id="scene" class="gallery">
+    <a href="https://www.xiaohongshu.com/discovery/item/68b6d10b000000001b022f99" target="_blank" title="情景背单词：私人物品被滥用">
+        <img src="https://i.postimg.cc/7CK1mxh4/photo1.png" alt="情景1-私人物品被滥用">
+    </a>
+    <a href="https://www.xiaohongshu.com/discovery/item/68b76973000000001b036fc8" target="_blank" title="情景背单词：宿舍作息矛盾">
+        <img src="https://i.postimg.cc/phyfSg5F/photo2.png" alt="情景2-宿舍作息矛盾">
+    </a>
+    <a href="https://www.xiaohongshu.com/discovery/item/68bd5e8a000000001c0087c0" target="_blank" title="情景背单词：占座被抢">
+        <img src="https://i.postimg.cc/06kdY68Z/photo3.png" alt="情景3-占座被抢">
+    </a>
+    <a href="https://www.xiaohongshu.com/discovery/item/68beb875000000001d01acf5" target="_blank" title="情景背单词：室友偷穿我衣服">
+        <img src="https://i.postimg.cc/Sn7fYLpJ/photo4.png" alt="情景4-室友偷穿我衣服">
+    </a>
+</div>
+
+<!-- 同词不同义 -->
+<div id="poly" class="gallery" style="display:none;">
+    <a href="https://www.xiaohongshu.com/discovery/item/68bac664000000001d005b3f" target="_blank" title="同词不同义：整理时的崩溃瞬间">
+        <img src="https://i.postimg.cc/WqkMNgnp/picture1.png" alt="同词1：整理时的崩溃瞬间">
+    </a>
+</div>
+
+<div class="footer">————持续更新中————</div>
+
+<script>
+function switchGallery(type){
+    document.getElementById('scene').style.display = type === 'scene' ? 'flex' : 'none';
+    document.getElementById('poly').style.display  = type === 'poly'  ? 'flex' : 'none';
+    document.querySelectorAll('.header button').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+}
+</script>
+</body>
+</html>
