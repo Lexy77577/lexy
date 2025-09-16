@@ -1,111 +1,606 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<title>一分钟学英语</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-.circle{
-    width:120px;
-    height:120px;
-    border-radius:50%;
-    object-fit:cover;
-    display:block;
-    margin:20px auto 0;          /* 上方留一点空隙，下方 0 稍后接 Bio */
-}
-.Bio{
-    text-align:center;
-    font-size:14px;
-    color:#444;
-    margin:10px auto 20px;
-}
-.header{
-    background:#f0f4f8;
-    padding:15px 0;
-    display:flex;
-    justify-content:center;
-    gap:20px;
-}
-.header button{
-    flex:1 1 300px;
-    max-width:400px;
-    padding:12px 0;
-    font-size:16px;
-    cursor:pointer;
-    border:none;
-    border-radius:4px;
-    background:#e0e0e0;
-    transition:background .2s;
-}
-.header button.active{background:#007bff;color:#fff;}
-.gallery{
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    padding:30px 10px;
-    flex-wrap:wrap;
-}
-.gallery img{
-    width:180px;
-    height:180px;
-    object-fit:cover;
-    border-radius:8px;
-    box-shadow:0 2px 8px rgba(0,0,0,.15);
-    transition:transform .2s;
-}
-.gallery img:hover{transform:scale(1.05);}
-.footer{padding:20px 0;font-size:14px;color:#666;text-align:center;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一分钟学英语</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4efe9 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin: 20px auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: #2c3e50;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 15px;
+            border: 5px solid #3498db;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .circle:hover {
+            transform: rotate(5deg);
+        }
+        
+        .Bio {
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+            padding: 0 15px;
+            line-height: 1.8;
+        }
+        
+        .Bio p {
+            margin: 10px 0;
+        }
+        
+        .header {
+            background: linear-gradient(to right, #3498db, #2c3e50);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .header button {
+            flex: 1;
+            max-width: 400px;
+            padding: 16px 0;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .header button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header button.active {
+            background: white;
+            color: #3498db;
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .gallery {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 25px 15px;
+            flex-wrap: wrap;
+        }
+        
+        .video-card {
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 220px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .video-thumb {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 3px solid #3498db;
+            background: linear-gradient(45deg, #3498db, #2c3e50);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .video-title {
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 16px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .play-icon {
+            position: absolute;
+            top: 65px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(52, 152, 219, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+        
+        .play-icon:before {
+            content: '';
+            border-style: solid;
+            border-width: 12px 0 12px 20px;
+            border-color: transparent transparent transparent #fff;
+            margin-left: 4px;
+        }
+        
+        .video-card:hover .play-icon {
+            background: rgba(41, 128, 185, 0.95);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .footer {
+            padding: 30px 0;
+            font-size: 18px;
+            color: #7f8c8d;
+            text-align: center;
+            margin-top: 30px;
+            font-weight: bold;
+        }
+        
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+        
+        .modal-content {
+            position: relative;
+            width: 90%;
+            max-width: 1000px;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 宽高比 */
+        }
+        
+        .modal-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            border: none;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(231, 76, 60, 0.8);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background: rgba(192, 57, 43, 0.9);
+            transform: rotate(90deg);
+        }
+        
+        .fullscreen-btn {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        
+        .fullscreen-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .modal-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 20px;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: #fff;
+            font-size: 18px;
+            text-align: center;
+            z-index: 5;
+        }
+        
+        /* 全屏样式 */
+        :fullscreen .modal-content {
+            width: 100%;
+            max-width: 100%;
+            border-radius: 0;
+        }
+        
+        :fullscreen .modal-close,
+        :fullscreen .fullscreen-btn {
+            top: 20px;
+            right: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .header button {
+                max-width: 100%;
+                padding: 14px 0;
+            }
+            
+            .video-card {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                border-radius: 8px;
+            }
+            
+            .modal-title {
+                font-size: 16px;
+                padding: 12px 15px;
+            }
+            
+            .modal-close,
+            .fullscreen-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .Bio {
+                font-size: 16px;
+            }
+            
+            .header {
+                padding: 15px;
+            }
+            
+            .header button {
+                font-size: 16px;
+                padding: 12px 0;
+            }
+            
+            .modal-content {
+                width: 100%;
+                border-radius: 0;
+            }
+            
+            .modal-title {
+                font-size: 14px;
+            }
+        }
+        
+        /* 加载动画 */
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border-top-color: #3498db;
+            animation: spin 1s linear infinite;
+            z-index: 5;
+            display: none;
+        }
+        
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
-
-<img src="https://i.postimg.cc/pmtBdG4w/logo.jpg" class="circle" alt="Logo">
-
-<div class="Bio">
-    <p>一分钟英语</p>
-    <p>聚焦中英词汇替换教学</p>
-    <p>用“中文词→英文词”的方式高效记单词</p>
-    <p>带你轻松掌握词汇含义&用法</p>
-    <p>一起在语境里学英语</p>
-</div>
-
-<div class="header">
-    <button class="active" onclick="switchGallery('scene')">情景背单词</button>
-    <button onclick="switchGallery('poly')">同词不同义</button>
-</div>
-
-<!-- 情景背单词 -->
-<div id="scene" class="gallery">
-    <a href="https://www.xiaohongshu.com/discovery/item/68b6d10b000000001b022f99" target="_blank" title="情景背单词：私人物品被滥用">
-        <img src="https://i.postimg.cc/7CK1mxh4/photo1.png" alt="情景1-私人物品被滥用">
-    </a>
-    <a href="https://www.xiaohongshu.com/discovery/item/68b76973000000001b036fc8" target="_blank" title="情景背单词：宿舍作息矛盾">
-        <img src="https://i.postimg.cc/phyfSg5F/photo2.png" alt="情景2-宿舍作息矛盾">
-    </a>
-    <a href="https://www.xiaohongshu.com/discovery/item/68bd5e8a000000001c0087c0" target="_blank" title="情景背单词：占座被抢">
-        <img src="https://i.postimg.cc/06kdY68Z/photo3.png" alt="情景3-占座被抢">
-    </a>
-    <a href="https://www.xiaohongshu.com/discovery/item/68beb875000000001d01acf5" target="_blank" title="情景背单词：室友偷穿我衣服">
-        <img src="https://i.postimg.cc/Sn7fYLpJ/photo4.png" alt="情景4-室友偷穿我衣服">
-    </a>
-</div>
-
-<!-- 同词不同义 -->
-<div id="poly" class="gallery" style="display:none;">
-    <a href="https://www.xiaohongshu.com/discovery/item/68bac664000000001d005b3f" target="_blank" title="同词不同义：整理时的崩溃瞬间">
-        <img src="https://i.postimg.cc/WqkMNgnp/picture1.png" alt="同词1：整理时的崩溃瞬间">
-    </a>
-</div>
-
-<div class="footer">————持续更新中————</div>
-
-<script>
-function switchGallery(type){
-    document.getElementById('scene').style.display = type === 'scene' ? 'flex' : 'none';
-    document.getElementById('poly').style.display  = type === 'poly'  ? 'flex' : 'none';
-    document.querySelectorAll('.header button').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-}
-</script>
+    <div class="container">
+        <h1>一分钟学英语</h1>
+        
+        <!-- Logo图片 - 替换src为您的实际logo路径 -->
+        <img src="logo.jpg" class="circle" alt="一分钟英语Logo" onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%22140%22 height%3D%22140%22 viewBox%3D%220 0 140 140%22%3E%3Crect width%3D%22140%22 height%3D%22140%22 fill%3D%22%233498db%22 rx%3D%2270%22%2F%3E%3Ctext x%3D%2270%22 y%3D%2275%22 font-family%3D%22Arial%22 font-size%3D%2220%22 fill%3D%22%23fff%22 text-anchor%3D%22middle%22%3ELogo%3C%2Ftext%3E%3C%2Fsvg%3E'">
+        
+        <div class="Bio">
+            <p>一分钟英语</p>
+            <p>聚焦中英词汇替换教学</p>
+            <p>用"中文词→英文词"的方式高效记单词</p>
+            <p>带你轻松掌握词汇含义&用法</p>
+            <p>一起在语境里学英语</p>
+        </div>
+        
+        <div class="header">
+            <button class="active" onclick="switchGallery('scene')">情景背单词</button>
+            <button onclick="switchGallery('poly')">同词不同义</button>
+        </div>
+        
+        <div id="scene" class="gallery">
+            <div class="video-card" data-video="私人物品被滥用.mp4" data-title="私人物品被滥用">
+                <div class="video-thumb">私人物品被滥用</div>
+                <div class="play-icon"></div>
+                <div class="video-title">私人物品被滥用</div>
+            </div>
+            
+            <div class="video-card" data-video="宿舍作息矛盾.mp4" data-title="宿舍作息矛盾">
+                <div class="video-thumb">宿舍作息矛盾</div>
+                <div class="play-icon"></div>
+                <div class="video-title">宿舍作息矛盾</div>
+            </div>
+            
+            <div class="video-card" data-video="占座被抢.mp4" data-title="占座被抢">
+                <div class="video-thumb">占座被抢</div>
+                <div class="play-icon"></div>
+                <div class="video-title">占座被抢</div>
+            </div>
+            
+            <div class="video-card" data-video="室友偷穿我衣服.mp4" data-title="室友偷穿我衣服">
+                <div class="video-thumb">室友偷穿我衣服</div>
+                <div class="play-icon"></div>
+                <div class="video-title">室友偷穿我衣服</div>
+            </div>
+        </div>
+        
+        <div id="poly" class="gallery" style="display:none;">
+            <div class="video-card" data-video="整理时的崩溃瞬间.mp4" data-title="整理时的崩溃瞬间">
+                <div class="video-thumb">整理时的崩溃瞬间</div>
+                <div class="play-icon"></div>
+                <div class="video-title">整理时的崩溃瞬间</div>
+            </div>
+        </div>
+        
+        <div class="footer">————持续更新中————</div>
+    </div>
+    
+    <!-- 视频模态框 -->
+    <div class="modal" id="videoModal">
+        <div class="modal-content">
+            <div class="modal-close" onclick="closeVideo()">×</div>
+            <div class="video-container">
+                <video class="modal-video" id="modalVideo" controls>
+                    您的浏览器不支持HTML5视频播放
+                </video>
+                <div class="loading" id="videoLoading"></div>
+            </div>
+            <div class="fullscreen-btn" onclick="toggleFullscreen()">⤢</div>
+            <div class="modal-title" id="videoTitle"></div>
+        </div>
+    </div>
+    
+    <script>
+        // 切换内容显示
+        function switchGallery(type) {
+            document.getElementById('scene').style.display = 'none';
+            document.getElementById('poly').style.display = 'none';
+            document.getElementById(type).style.display = 'flex';
+            
+            const btns = document.querySelectorAll('.header button');
+            btns.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+        
+        // 打开视频模态框
+        function openVideo(videoFile, title) {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            const titleElement = document.getElementById('videoTitle');
+            const loading = document.getElementById('videoLoading');
+            
+            // 显示加载动画
+            loading.style.display = 'block';
+            
+            // 设置视频源和标题
+            video.src = videoFile;
+            titleElement.textContent = title;
+            
+            // 显示模态框
+            modal.classList.add('active');
+            
+            // 视频加载完成后隐藏加载动画
+            video.onloadeddata = function() {
+                loading.style.display = 'none';
+                video.play().catch(e => {
+                    console.log('自动播放被阻止:', e);
+                    loading.style.display = 'none';
+                });
+            };
+            
+            // 视频加载错误处理
+            video.onerror = function() {
+                loading.style.display = 'none';
+                alert('视频加载失败，请检查视频路径是否正确');
+            };
+            
+            // 点击模态框背景关闭
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeVideo();
+                }
+            });
+        }
+        
+        // 关闭视频模态框
+        function closeVideo() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('modalVideo');
+            const loading = document.getElementById('videoLoading');
+            
+            // 退出全屏（如果正在全屏）
+            if (document.fullscreenElement) {
+                document.exitFullscreen().catch(err => {
+                    console.log('全屏退出错误:', err);
+                });
+            }
+            
+            video.pause();
+            loading.style.display = 'none';
+            modal.classList.remove('active');
+        }
+        
+        // 切换全屏
+        function toggleFullscreen() {
+            const modalContent = document.querySelector('.modal-content');
+            
+            if (!document.fullscreenElement) {
+                // 进入全屏
+                if (modalContent.requestFullscreen) {
+                    modalContent.requestFullscreen();
+                } else if (modalContent.webkitRequestFullscreen) {
+                    modalContent.webkitRequestFullscreen();
+                } else if (modalContent.msRequestFullscreen) {
+                    modalContent.msRequestFullscreen();
+                }
+            } else {
+                // 退出全屏
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                } else if (document.msExitFullscreen) {
+                    document.msExitFullscreen();
+                }
+            }
+        }
+        
+        // 为所有视频项添加点击事件
+        document.querySelectorAll('.video-card').forEach(item => {
+            item.addEventListener('click', function() {
+                const videoFile = this.getAttribute('data-video');
+                const title = this.getAttribute('data-title');
+                openVideo(videoFile, title);
+            });
+        });
+        
+        // 支持ESC键关闭视频
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                // 如果正在全屏，先退出全屏
+                if (document.fullscreenElement) {
+                    toggleFullscreen();
+                } else {
+                    closeVideo();
+                }
+            }
+        });
+        
+        // 检测图片加载错误并替换为占位符
+        document.querySelectorAll('img').forEach(img => {
+            img.onerror = function() {
+                this.src = 'data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%22220%22 height%3D%22180%22 viewBox%3D%220 0 220 180%22%3E%3Crect width%3D%22220%22 height%3D%22180%22 fill%3D%22%233498db%22%2F%3E%3Ctext x%3D%22110%22 y%3D%2290%22 font-family%3D%22Arial%22 font-size%3D%2216%22 fill%3D%22%23fff%22 text-anchor%3D%22middle%22%3E图片加载失败%3C%2Ftext%3E%3C%2Fsvg%3E';
+                this.alt = '图片加载失败';
+            };
+        });
+    </script>
 </body>
 </html>

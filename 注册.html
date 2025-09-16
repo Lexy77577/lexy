@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册 | 您的网站</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+            padding: 20px;
+            position: relative;
+        }
+        
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            transition: transform 0.3s;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo h1 {
+            color: #333;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .logo p {
+            color: #777;
+            margin-top: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+        
+        .input-with-icon {
+            position: relative;
+        }
+        
+        .input-with-icon i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+        
+        .input-with-icon input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .input-with-icon input:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #999;
+        }
+        
+        .password-strength {
+            height: 5px;
+            margin-top: 5px;
+            border-radius: 3px;
+            background: #eee;
+            overflow: hidden;
+        }
+        
+        .password-strength-bar {
+            height: 100%;
+            width: 0;
+            transition: width 0.3s, background 0.3s;
+        }
+        
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        
+        button:hover {
+            background-color: #357abD;
+        }
+        
+        .switch-form {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            margin-top: 20px;
+        }
+        
+        .switch-form a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .switch-form a:hover {
+            text-decoration: underline;
+        }
+        
+        .error {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .success {
+            color: #2ecc71;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .terms {
+            font-size: 12px;
+            color: #777;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .terms a {
+            color: #4a90e2;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>创建账户</h1>
+            <p>填写以下信息注册新账户</p>
+        </div>
+        
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="regUsername">用户名</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="regUsername" name="regUsername" placeholder="设置您的用户名" required>
+                </div>
+                <div class="error" id="regUsernameError">用户名不能为空</div>
+                <div class="success" id="regUsernameSuccess">用户名可用</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="regEmail">电子邮箱</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="regEmail" name="regEmail" placeholder="输入您的电子邮箱" required>
+                </div>
+                <div class="error" id="regEmailError">请输入有效的电子邮箱</div>
+                <div class="success" id="regEmailSuccess">邮箱格式正确</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="regPassword">密码</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="regPassword" name="regPassword" placeholder="设置您的密码" required>
+                    <span class="toggle-password" id="toggleRegPassword">
+                        <i class="far fa-eye"></i>
+                    </span>
+                </div>
+                <div class="password-strength">
+                    <div class="password-strength-bar" id="passwordStrengthBar"></div>
+                </div>
+                <div class="error" id="regPasswordError">密码必须至少包含8个字符，包括字母和数字</div>
+                <div class="success" id="regPasswordSuccess">密码强度足够</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="regConfirmPassword">确认密码</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="regConfirmPassword" name="regConfirmPassword" placeholder="再次输入密码" required>
+                </div>
+                <div class="error" id="regConfirmPasswordError">密码不匹配</div>
+                <div class="success" id="regConfirmPasswordSuccess">密码匹配</div>
+            </div>
+            
+            <button type="submit">注册</button>
+        </form>
+        
+        <div class="terms">
+            点击"注册"表示您同意我们的<a href="#">服务条款</a>和<a href="#">隐私政策</a>
+        </div>
+        
+        <div class="switch-form">
+            已有账号？<a href="index.html">立即登录</a>
+        </div>
+    </div>
+
+    <script>
+        // 从本地存储获取已注册的用户数据
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        
+        // 密码强度检查
+        document.getElementById('regPassword').addEventListener('input', function() {
+            const password = this.value;
+            const strengthBar = document.getElementById('passwordStrengthBar');
+            let strength = 0;
+            
+            if (password.length > 0) strength += 20;
+            if (password.length >= 8) strength += 20;
+            if (/[A-Z]/.test(password)) strength += 20;
+            if (/[0-9]/.test(password)) strength += 20;
+            if (/[^A-Za-z0-9]/.test(password)) strength += 20;
+            
+            strengthBar.style.width = strength + '%';
+            
+            if (strength < 40) {
+                strengthBar.style.background = '#e74c3c';
+            } else if (strength < 80) {
+                strengthBar.style.background = '#f39c12';
+            } else {
+                strengthBar.style.background = '#2ecc71';
+            }
+        });
+        
+        // 用户名实时验证
+        document.getElementById('regUsername').addEventListener('blur', function() {
+            const username = this.value.trim();
+            const errorElement = document.getElementById('regUsernameError');
+            const successElement = document.getElementById('regUsernameSuccess');
+            
+            if (username === '') {
+                errorElement.textContent = '用户名不能为空';
+                errorElement.style.display = 'block';
+                successElement.style.display = 'none';
+            } else if (users.some(user => user.username === username)) {
+                errorElement.textContent = '用户名已存在';
+                errorElement.style.display = 'block';
+                successElement.style.display = 'none';
+            } else {
+                errorElement.style.display = 'none';
+                successElement.style.display = 'block';
+            }
+        });
+        
+        // 邮箱实时验证
+        document.getElementById('regEmail').addEventListener('blur', function() {
+            const email = this.value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const errorElement = document.getElementById('regEmailError');
+            const successElement = document.getElementById('regEmailSuccess');
+            
+            if (!emailPattern.test(email)) {
+                errorElement.textContent = '请输入有效的电子邮箱';
+                errorElement.style.display = 'block';
+                successElement.style.display = 'none';
+            } else if (users.some(user => user.email === email)) {
+                errorElement.textContent = '邮箱已被注册';
+                errorElement.style.display = 'block';
+                successElement.style.display = 'none';
+            } else {
+                errorElement.style.display = 'none';
+                successElement.style.display = 'block';
+            }
+        });
+        
+        // 确认密码实时验证
+        document.getElementById('regConfirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = this.value;
+            const errorElement = document.getElementById('regConfirmPasswordError');
+            const successElement = document.getElementById('regConfirmPasswordSuccess');
+            
+            if (password !== confirmPassword) {
+                errorElement.style.display = 'block';
+                successElement.style.display = 'none';
+            } else {
+                errorElement.style.display = 'none';
+                successElement.style.display = 'block';
+            }
+        });
+        
+        // 注册表单验证
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let isValid = true;
+            const username = document.getElementById('regUsername').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+            
+            // 用户名验证
+            if (username === '') {
+                document.getElementById('regUsernameError').textContent = '用户名不能为空';
+                document.getElementById('regUsernameError').style.display = 'block';
+                document.getElementById('regUsernameSuccess').style.display = 'none';
+                isValid = false;
+            } else if (users.some(user => user.username === username)) {
+                document.getElementById('regUsernameError').textContent = '用户名已存在';
+                document.getElementById('regUsernameError').style.display = 'block';
+                document.getElementById('regUsernameSuccess').style.display = 'none';
+                isValid = false;
+            } else {
+                document.getElementById('regUsernameError').style.display = 'none';
+                document.getElementById('regUsernameSuccess').style.display = 'block';
+            }
+            
+            // 邮箱验证
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                document.getElementById('regEmailError').textContent = '请输入有效的电子邮箱';
+                document.getElementById('regEmailError').style.display = 'block';
+                document.getElementById('regEmailSuccess').style.display = 'none';
+                isValid = false;
+            } else if (users.some(user => user.email === email)) {
+                document.getElementById('regEmailError').textContent = '邮箱已被注册';
+                document.getElementById('regEmailError').style.display = 'block';
+                document.getElementById('regEmailSuccess').style.display = 'none';
+                isValid = false;
+            } else {
+                document.getElementById('regEmailError').style.display = 'none';
+                document.getElementById('regEmailSuccess').style.display = 'block';
+            }
+            
+            // 密码验证
+            if (password.length < 8 || !/[0-9]/.test(password) || !/[A-Za-z]/.test(password)) {
+                document.getElementById('regPasswordError').style.display = 'block';
+                document.getElementById('regPasswordSuccess').style.display = 'none';
+                isValid = false;
+            } else {
+                document.getElementById('regPasswordError').style.display = 'none';
+                document.getElementById('regPasswordSuccess').style.display = 'block';
+            }
+            
+            // 确认密码验证
+            if (password !== confirmPassword) {
+                document.getElementById('regConfirmPasswordError').style.display = 'block';
+                document.getElementById('regConfirmPasswordSuccess').style.display = 'none';
+                isValid = false;
+            } else {
+                document.getElementById('regConfirmPasswordError').style.display = 'none';
+                document.getElementById('regConfirmPasswordSuccess').style.display = 'block';
+            }
+            
+            if (isValid) {
+                // 保存用户数据到本地存储
+                const newUser = {
+                    id: Date.now(),
+                    username: username,
+                    email: email,
+                    password: password,
+                    createdAt: new Date().toISOString()
+                };
+                
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                alert('注册成功！您现在可以登录了。');
+                // 跳转到登录页面
+                window.location.href = '登录.html';
+            }
+        });
+        
+        // 显示/隐藏密码功能
+        document.getElementById('toggleRegPassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('regPassword');
+            const eyeIcon = this.querySelector('i');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }
+        });
+    </script>
+</body>
+</html>
