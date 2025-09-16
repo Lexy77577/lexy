@@ -190,6 +190,7 @@
             font-size: 18px;
             color: #7f8c8d;
             text-align: center;
+            text-align: center;
             margin-top: 30px;
             font-weight: bold;
         }
@@ -404,6 +405,21 @@
             0% { transform: translate(-50%, -50%) rotate(0deg); }
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
+
+          .footer a {
+                color: #3498db;
+                text-decoration: none;
+                font-size: 16px;
+                transition: color 0.3s ease;
+                margin-top: 10px;
+                display: block; /* 修改这行 */
+                 }
+
+         .footer a:hover {
+               color: #2980b9;
+               text-decoration: underline;
+                } 
+
     </style>
 </head>
 <body>
@@ -460,8 +476,16 @@
             </div>
         </div>
         
-        <div class="footer">————持续更新中————</div>
-    </div>
+        <div class="footer">
+              ————持续更新中————
+            <br><br>
+              <a href="https://www.xiaohongshu.com/user/profile/5e89a8970000000001000255?xsec_token=ABbD_yG_tVHupYN3yuOiZr1519u6bLJEawbSxXA9pjBrA%3D&xsec_source=pc_search" 
+                 target="_blank" 
+                   style="color: #3498db; text-decoration: none; font-size: 16px;">
+                      小红书同名：一分钟学英语
+             </a>
+       </div>
+      </div>
     
     <!-- 视频模态框 -->
     <div class="modal" id="videoModal">
